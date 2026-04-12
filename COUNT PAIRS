@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+long long countPairs(long long n) {
+    long long distinctPrimes = 0;
+
+    // Check factor 2
+    if (n % 2 == 0) {
+        distinctPrimes++;
+        while (n % 2 == 0) n /= 2;
+    }
+
+    // Check odd factors
+    for (long long i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) {
+            distinctPrimes++;
+            while (n % i == 0) n /= i;
+        }
+    }
+
+    
+    if (n > 1) distinctPrimes++;
+
+    
+    return (1LL << distinctPrimes);
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int T;
+    cin >> T;
+
+    while (T--) {
+        long long n;
+        cin >> n;
+        cout << countPairs(n) << "\n";
+    }
+
+    return 0;
+}
