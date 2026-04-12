@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+bool possible(string &bulbs, int n, int maxOps, int k) {
+    int ops = 0;
+    int i = 0;
+
+    while (i < n) {
+        if (bulbs[i] == '1') {
+            ops++;
+            if (ops > maxOps) return false;
+
+            // Turn OFF bulbs from i to i+k-1
+            i += k;
+        } else {
+            i++;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    int n, maxOps;
+    cin >> n >> maxOps;
+
+    string bulbs;
+    cin >> bulbs;
+
+    int left = 1, right = n, ans = n;
+
+    while (left <= right) {
+        int mid = (left + right) / 2;
+
+        if (possible(bulbs, n, maxOps, mid)) {
+            ans = mid;
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    cout << ans;
+
+    return 0;
+}
